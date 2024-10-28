@@ -37,7 +37,7 @@ enum read_status from_bmp(FILE *in, struct image *img) {
 
     for (uint64_t i = 0; i < img->height; i++) {
         fread(img->data + i * img->width, sizeof(struct pixel), img->width, in);
-        fseek(in, (4 - (img->width * 3) % 4) % 4, SEEK_CUR);
+        fseek(in, (4 - ((long)img->width * 3) % 4) % 4, SEEK_CUR);
     }
 
     return READ_OK;
