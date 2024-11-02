@@ -37,7 +37,7 @@ enum read_status from_bmp(FILE *in, struct image *img) {
 
     for (uint64_t i = 0; i < img->height; i++) {
         fread(img->data + i * img->width, sizeof(struct pixel), img->width, in);
-        fseek(in, (4 - ((long)img->width * 3) % 4) % 4, SEEK_CUR);
+        fseek(in, (4 - ((long) img->width * 3) % 4) % 4, SEEK_CUR);
     }
 
     return READ_OK;
@@ -46,21 +46,23 @@ enum read_status from_bmp(FILE *in, struct image *img) {
 enum write_status to_bmp(FILE *out, const struct image *img) {
     struct bmp_header header = {0};
     header.bfType = 0x4D42;
-    header.bfileSize = (uint32_t) (sizeof(struct bmp_header) + img->width * img->height * sizeof(struct pixel));
+    size_t padding_size = (4 - (img->width * 3) % 4) % 4;
+    header.bfileSize = (uint32_t)(sizeof(struct bmp_header) + img->width * img->height * sizeof(struct pixel));
     header.bOffBits = sizeof(struct bmp_header);
     header.biSize = 40;
-    header.biWidth = (uint32_t) (img->width);
-    header.biHeight = (uint32_t) (img->height);
+    header.biWidth = (uint32_t)(img->width);
+    header.biHeight = (uint32_t)(img->height);
     header.biPlanes = 1;
     header.biBitCount = 24;
-    header.biSizeImage = (uint32_t) (img->width * img->height * sizeof(struct pixel));
+    header.biSizeImage = (uint32_t)(img->width * img->height * sizeof(struct pixel));
 
     fwrite(&header, sizeof(struct bmp_header), 1, out);
 
+    uint8_t padding[3] = {0, 0, 0};
+
     for (uint64_t i = 0; i < img->height; i++) {
         fwrite(img->data + i * img->width, sizeof(struct pixel), img->width, out);
-        uint8_t padding = 0;
-        fwrite(&padding, 1, (4 - (img->width * 3) % 4) % 4, out);
+        fwrite(padding, 1, padding_size, out);
     }
 
     return WRITE_OK;
