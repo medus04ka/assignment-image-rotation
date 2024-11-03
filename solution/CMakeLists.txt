@@ -7,7 +7,7 @@ file(GLOB_RECURSE sources CONFIGURE_DEPENDS
 add_executable(image-transformer ${sources}
         include/image.h
         include/bmp.h
-        include/transf.h
+        include/transfo.h
         src/image.c
         src/bmp.c
         src/transf.c)
