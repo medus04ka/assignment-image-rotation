@@ -1,4 +1,4 @@
-#include "transf.h"
+#include "../include/transfo.h"
 
 struct image rotate_90(const struct image source) {
     struct image rotated = create_image(source.height, source.width);

@@ -1,4 +1,4 @@
-#include "image.h"
+#include "../include/image.h"
 #include <stdlib.h>
 
 struct image create_image(uint64_t width, uint64_t height) {

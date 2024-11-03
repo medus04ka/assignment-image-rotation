@@ -1,4 +1,4 @@
-#include "bmp.h"
+#include "../include/bmp.h"
 #include <stdlib.h>
 
 #pragma pack(push, 1)

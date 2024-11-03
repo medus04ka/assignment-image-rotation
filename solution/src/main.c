@@ -1,5 +1,5 @@
 #include "../include/bmp.h"
-#include "../include/transf.h"
+#include "../include/transfo.h"
 #include <stdio.h>
 
 int main(int argc, char *argv[]) {

@@ -1,5 +1,5 @@
-#ifndef TRANSF_H
-#define TRANSF_H
+#ifndef TRANSFO_H
+#define TRANSFO_H
 
 #include "image.h"
 
